@@ -5,7 +5,7 @@ class Heap {
     // higher than 0: rhs is prior
     // exactly 0: same priority
 
-    this.compare = compareFunction;
+    this.compareFunction = compareFunction;
     this.tree = [null];
 
     this.push = (val) => {
