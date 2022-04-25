@@ -18,10 +18,14 @@ class Heap {
     };
     
     this.top = () => {
-      if (heapArray.legnth <= 0) {
+      if (heapArray.length <= 0) {
         return null;
       }
       return heapArray[0];
+    };
+
+    this.size = () => {
+      return heapArray.length;
     };
     
     this.pop = () => {
@@ -36,11 +40,8 @@ class Heap {
       let curIndex = 1;
       while (curIndex * 2 <= heapArray.length) {
         const [leftIndex, rightIndex] = [curIndex * 2, curIndex * 2 + 1];
-        const [realCurIndex, realLeftIndex, realRightIndex] = [curIndex - 1, leftIndex - 1, rightIndex - 1];
-        const [noLowerThanLeft, noLowerThanRight] = [
-          compareFunc(heapArray[realLeftIndex], heapArray[realCurIndex]) >= 0,
-          compareFunc(heapArray[realRightIndex], heapArray[realCurIndex]) >= 0,
-        ];
+        const [realCurIndex, realLeftIndex] = [curIndex - 1, leftIndex - 1];
+        const noLowerThanLeft = (compareFunc(heapArray[realLeftIndex], heapArray[realCurIndex]) >= 0);
         if (leftIndex <= heapArray.length && rightIndex > heapArray.length) {
           if (noLowerThanLeft) {
             break;
@@ -49,6 +50,8 @@ class Heap {
           curIndex = leftIndex;
           continue;
         }
+        const realRightIndex = rightIndex - 1;
+        const noLowerThanRight = (compareFunc(heapArray[realRightIndex], heapArray[realCurIndex]) >= 0);
         if (noLowerThanLeft && noLowerThanRight) {
           break;
         } else if (!noLowerThanLeft && noLowerThanRight) {
